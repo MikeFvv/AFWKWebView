@@ -52,14 +52,14 @@
     
     NSURLSessionDataTask *task=[URlSession dataTaskWithRequest:URlrequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         __strong __typeof(weakSelf)strongSelf = weakSelf;
-        //7json 解析
+        // json 解析
         NSDictionary *dictSession = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
         NSLog(@"%@",dictSession);
         NSArray *obj = dictSession[@"obj"];
         NSDictionary *dictPar = obj.firstObject;
         NSString *url = dictPar[@"url"];
         
-        url = @"https://www.baidu.com/";  ///<<< AFan 上线这里需要注释掉
+//        url = @"https://www.baidu.com/";  ///<<< AFan 上线这里需要注释掉
         // 更新UI，在主线程
         dispatch_async(dispatch_get_main_queue(), ^{
            [strongSelf.webView loadWebURLSring:url];
