@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "AFWKWebViewController.h"
+#import "UpdateDownPageController.h"
 
 @interface AppDelegate ()
 ///
@@ -21,11 +22,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [self sendRequest];
+//    [self sendRequest];
     //    [self sendSyncWithRequest];
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    AFWKWebViewController *web = [[AFWKWebViewController alloc] init];
+//    AFWKWebViewController *web = [[AFWKWebViewController alloc] init];
+    UpdateDownPageController *web = [[UpdateDownPageController alloc] init];
     //    [web loadWebURLSring:self.URL];
     self.window.rootViewController = web;//设置根视图控制器
     _webView = web;
