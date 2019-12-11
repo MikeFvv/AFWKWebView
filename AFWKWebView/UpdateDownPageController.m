@@ -9,15 +9,20 @@
 #import "UpdateDownPageController.h"
 #import "Masonry.h"
 #import "UIImage+GIF.h"
+#import "LCGCycleCollectionView.h"
+#import "CUCollectionViewCell.h"
 
-@interface UpdateDownPageController ()<UIScrollViewDelegate>
+@interface UpdateDownPageController ()<UIScrollViewDelegate,LCGCycleCollectionViewDelegate ,LCGCycleCollectionViewDataSource>
 
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIView *contentView;
 @property (strong, nonatomic) UIView *contaierView;
 
 @property (strong, nonatomic) UIImageView *bgImgView;
+@property (strong, nonatomic) UIImageView *wfBgImg;
 
+@property (strong, nonatomic) UIImageView *iconImg;
+@property (strong, nonatomic) NSArray *imgsArray;
 
 @end
 
@@ -31,7 +36,70 @@
     [self setScrollView];
     [self createSubViews];
     [self setupUI2];
+    
+    // 可以延时调用方法
+    [self performSelector:@selector(setCollectionView) withObject:nil afterDelay:2];
+    NSLog(@"1");
+    //    [self hhjk];
 }
+
+- (void)setCollectionView {
+    
+    _imgsArray = @[@"pt1_1",@"pt1_2",@"pt1_3",@"pt1_4",@"pt1_5",@"pt1_6"];
+    
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    flowLayout.minimumLineSpacing = 2;
+    flowLayout.itemSize = CGSizeMake(103, 137.5) ;
+    flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    LCGCycleCollectionView * cv = [[LCGCycleCollectionView alloc]initWithFrame:CGRectMake(0, 503-137.5, self.view.frame.size.width, 137.5) collectionViewLayout:flowLayout];
+    cv.delegate = self;
+    cv.dataSource = self ;
+    //    cv.autoScroll = NO ;
+    cv.displacement = 0.5;
+    cv.timeInterval = 1;
+    cv.pagingEnabled = YES ;
+    cv.changePageCount = 1 ;
+    cv.tag = 1000 ;
+    [cv registerClass:[CUCollectionViewCell class] forCellWithReuseIdentifier:@"CUCollectionViewCell"] ;
+    [self.wfBgImg addSubview:cv];
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    LCGCycleCollectionView * cv = [self.wfBgImg viewWithTag:1000] ;
+    [cv setupTimer];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    LCGCycleCollectionView * cv = [self.wfBgImg viewWithTag:1000] ;
+    [cv invalidateTimer];
+}
+
+//LCGCycleCollectionView  dataSource
+-(NSInteger)cycleCollectionView:(LCGCycleCollectionView *)ycleCollectionView collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return self.imgsArray.count;
+}
+
+- (__kindof UICollectionViewCell *)cycleCollectionView:(LCGCycleCollectionView *)cycleCollectionView collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    CUCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CUCollectionViewCell" forIndexPath:indexPath];
+    //    cell.backgroundColor = [UIColor blueColor];
+    cell.imageView.image = [UIImage imageNamed:self.imgsArray[indexPath.row]];
+    return cell ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /// 更新app
@@ -45,14 +113,57 @@
 
 - (void)setupUI2 {
     
-    UIImageView *zzBgImg = [[UIImageView alloc] init];
-    zzBgImg.image = [UIImage imageNamed:@"palying"];
-    [self.bgImgView addSubview:zzBgImg];
+    // 玩法多样
+    UIImageView *wfBgImg = [[UIImageView alloc] init];
+    wfBgImg.userInteractionEnabled = YES;
+    wfBgImg.image = [UIImage imageNamed:@"palying"];
+    [self.contentView addSubview:wfBgImg];
+    _wfBgImg = wfBgImg;
     
-    [zzBgImg mas_makeConstraints:^(MASConstraintMaker *make) {
+    [wfBgImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.bgImgView.mas_bottom);
         make.left.right.equalTo(self.contentView);
-        make.size.mas_equalTo(CGSizeMake([[UIScreen mainScreen] bounds].size.width, 503));
+        make.height.mas_equalTo(503);
+    }];
+    
+    // 热门游戏
+    UIImageView *rmBgImg = [[UIImageView alloc] init];
+    rmBgImg.image = [UIImage imageNamed:@"hot"];
+    [self.contentView addSubview:rmBgImg];
+    
+    [rmBgImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(wfBgImg.mas_bottom);
+        make.left.right.equalTo(self.contentView);
+        make.height.mas_equalTo(351);
+    }];
+    
+    // 下载
+    UIImageView *xzbImg = [[UIImageView alloc] init];
+    xzbImg.image = [UIImage imageNamed:@"bottom"];
+    xzbImg.userInteractionEnabled = YES;
+    [self.contentView addSubview:xzbImg];
+    
+    [xzbImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(rmBgImg.mas_bottom);
+        make.left.right.equalTo(self.contentView);
+        make.height.mas_equalTo(65);
+    }];
+    
+    /// 立即更新 gif图
+    NSString *filePath = [[NSBundle bundleWithPath:[[NSBundle mainBundle] bundlePath]]pathForResource:@"get" ofType:@"gif"];
+    NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+    UIImage *uImage = [UIImage sd_imageWithGIFData:imageData];
+    
+    UIButton *updateBtn = [[UIButton alloc] init];
+    [updateBtn setBackgroundImage:uImage forState:UIControlStateNormal];
+    [updateBtn addTarget:self action:@selector(updateApp) forControlEvents:UIControlEventTouchUpInside];
+    updateBtn.tag = 1002;
+    [xzbImg addSubview:updateBtn];
+    
+    [updateBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(xzbImg.mas_centerY);
+        make.right.equalTo(xzbImg.mas_right).offset(-10);
+        make.size.mas_equalTo(CGSizeMake(89, 56));
     }];
 }
 
@@ -72,7 +183,7 @@
     UIButton *inBtn = [[UIButton alloc] init];
     [inBtn setTitle:@"进入官网" forState:UIControlStateNormal];
     [inBtn addTarget:self action:@selector(goto_guanwang:) forControlEvents:UIControlEventTouchUpInside];
-    inBtn.backgroundColor = [UIColor redColor];
+    inBtn.backgroundColor = [UIColor blueColor];
     inBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     inBtn.layer.cornerRadius = 5;
     inBtn.layer.masksToBounds = YES;
@@ -108,10 +219,10 @@
     }];
     
     
-    CGFloat widht = 51;
+    CGFloat widht = 51.5;
     
     UIView *imgBackView = [[UIView alloc] init];
-    imgBackView.backgroundColor = [UIColor greenColor];
+    //    imgBackView.backgroundColor = [UIColor greenColor];
     [bgImgView addSubview:imgBackView];
     
     [imgBackView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -132,6 +243,17 @@
         [imgBackView addSubview:ztopImgView];
     }
     
+    // icon
+    UIImageView *iconImg = [[UIImageView alloc] init];
+    iconImg.image = [UIImage imageNamed:@"11x5"];
+    [bgImgView addSubview:iconImg];
+    _iconImg = iconImg;
+    
+    [iconImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(imgBackView.mas_bottom).offset(10);
+        make.left.equalTo(imgBackView.mas_left);
+        make.size.mas_equalTo(55);
+    }];
     
     UILabel *xzLabel = [[UILabel alloc] init];
     xzLabel.text = @"下载手机应用";
@@ -140,8 +262,8 @@
     [bgImgView addSubview:xzLabel];
     
     [xzLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(imgBackView.mas_bottom).offset(10);
-        make.left.equalTo(imgBackView.mas_left);
+        make.top.equalTo(iconImg.mas_top).offset(5);
+        make.left.equalTo(iconImg.mas_right).offset(15);
     }];
     
     UILabel *dzxzLabel = [[UILabel alloc] init];
@@ -151,8 +273,8 @@
     [bgImgView addSubview:dzxzLabel];
     
     [dzxzLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(xzLabel.mas_bottom).offset(5);
-        make.left.equalTo(imgBackView.mas_left);
+        make.bottom.equalTo(iconImg.mas_bottom).offset(-10);
+        make.left.equalTo(xzLabel.mas_left);
     }];
     
     
@@ -161,7 +283,7 @@
     [bgImgView addSubview:gradeImgView];
     
     [gradeImgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(dzxzLabel.mas_bottom).offset(20);
+        make.top.equalTo(iconImg.mas_bottom).offset(15);
         make.left.equalTo(bgImgView.mas_left).offset(5);
         make.right.equalTo(bgImgView.mas_right).offset(-10);
         make.height.mas_equalTo(47);
@@ -169,19 +291,19 @@
     
     UIView *bgXZView = [[UIView alloc] init];
     bgXZView.layer.borderWidth = 1.5;
-    bgXZView.layer.borderColor = [UIColor whiteColor].CGColor;
-    bgXZView.backgroundColor = [UIColor greenColor];
+    bgXZView.layer.borderColor = [self colorWithHex:0xD4D4D4].CGColor;
+    //    bgXZView.backgroundColor = [UIColor greenColor];
     [bgImgView addSubview:bgXZView];
     
     [bgXZView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(gradeImgView.mas_bottom).offset(12);
-        make.left.equalTo(bgImgView.mas_left).offset(-1);
-        make.right.equalTo(bgImgView.mas_right).offset(1);
-        make.height.mas_equalTo(94);
+        make.left.equalTo(bgImgView.mas_left).offset(-2);
+        make.right.equalTo(bgImgView.mas_right).offset(2);
+        make.height.mas_equalTo(100);
     }];
     
     UIView *nbBgXZView = [[UIView alloc] init];
-    nbBgXZView.backgroundColor = [UIColor redColor];
+    //    nbBgXZView.backgroundColor = [UIColor redColor];
     [bgXZView addSubview:nbBgXZView];
     
     [nbBgXZView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -203,8 +325,9 @@
         [nbBgXZView addSubview:zsImgView];
     }
     
-    NSString  *filePath = [[NSBundle bundleWithPath:[[NSBundle mainBundle] bundlePath]]pathForResource:@"update" ofType:@"gif"];
-    NSData  *imageData = [NSData dataWithContentsOfFile:filePath];
+    /// 立即更新 gif图
+    NSString *filePath = [[NSBundle bundleWithPath:[[NSBundle mainBundle] bundlePath]]pathForResource:@"update" ofType:@"gif"];
+    NSData *imageData = [NSData dataWithContentsOfFile:filePath];
     UIImage *uImage = [UIImage sd_imageWithGIFData:imageData];
     
     UIButton *updateBtn = [[UIButton alloc] init];
@@ -212,7 +335,7 @@
     [updateBtn addTarget:self action:@selector(updateApp) forControlEvents:UIControlEventTouchUpInside];
     updateBtn.tag = 1001;
     [bgImgView addSubview:updateBtn];
-
+    
     [updateBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(bgXZView.mas_bottom).offset(6);
         make.centerX.equalTo(bgImgView.mas_centerX);
@@ -220,6 +343,16 @@
     }];
     
     
+}
+
+- (UIColor*)colorWithHex:(long)hexColor{
+    return [self colorWithHex:hexColor alpha:0.5];
+}
+- (UIColor *)colorWithHex:(long)hexColor alpha:(float)opacity{
+    float red = ((float)((hexColor & 0xFF0000) >> 16))/255.0;
+    float green = ((float)((hexColor & 0xFF00) >> 8))/255.0;
+    float blue = ((float)(hexColor & 0xFF))/255.0;
+    return [UIColor colorWithRed:red green:green blue:blue alpha:opacity];
 }
 
 - (NSData *)dataNamed:(NSString *)name {
@@ -267,7 +400,7 @@
     
     
     _scrollView = [[UIScrollView alloc] init];
-    _scrollView.backgroundColor = [UIColor cyanColor];
+    //    _scrollView.backgroundColor = [UIColor cyanColor];
     //设置contentSize,默认是0,不支持滚动
     _scrollView.contentSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 1000);
     //设置contentOffset
@@ -300,12 +433,12 @@
     
     UIView *contentView = [[UIView alloc]init];
     [_scrollView addSubview:contentView];
-    contentView.backgroundColor = [UIColor greenColor];
+    //    contentView.backgroundColor = [UIColor greenColor];
     _contentView = contentView;
     [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(_scrollView);
         make.width.offset(self.view.bounds.size.width);
-        make.height.equalTo(@1000);
+        make.height.equalTo(@2000);
     }];
 }
 

@@ -97,6 +97,9 @@
 		40BF3D1A23A00BE400131821 /* NSBezierPath+RoundedCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = 40BF3CD723A00BE300131821 /* NSBezierPath+RoundedCorners.m */; };
 		40BF3D1B23A00BE400131821 /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = 40BF3CD823A00BE300131821 /* UIColor+HexString.m */; };
 		40BF3D1C23A00BE400131821 /* SDAssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 40BF3CD923A00BE300131821 /* SDAssociatedObject.m */; };
+		40BF3D2223A1404300131821 /* LCGCycleCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40BF3D1E23A1404300131821 /* LCGCycleCollectionView.m */; };
+		40BF3D2323A1404300131821 /* LCGCycleTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40BF3D2123A1404300131821 /* LCGCycleTableView.m */; };
+		40BF3D2623A1407300131821 /* CUCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 40BF3D2523A1407300131821 /* CUCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -282,6 +285,12 @@
 		40BF3CD723A00BE300131821 /* NSBezierPath+RoundedCorners.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+RoundedCorners.m"; sourceTree = "<group>"; };
 		40BF3CD823A00BE300131821 /* UIColor+HexString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexString.m"; sourceTree = "<group>"; };
 		40BF3CD923A00BE300131821 /* SDAssociatedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDAssociatedObject.m; sourceTree = "<group>"; };
+		40BF3D1E23A1404300131821 /* LCGCycleCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCGCycleCollectionView.m; sourceTree = "<group>"; };
+		40BF3D1F23A1404300131821 /* LCGCycleTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCGCycleTableView.h; sourceTree = "<group>"; };
+		40BF3D2023A1404300131821 /* LCGCycleCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCGCycleCollectionView.h; sourceTree = "<group>"; };
+		40BF3D2123A1404300131821 /* LCGCycleTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCGCycleTableView.m; sourceTree = "<group>"; };
+		40BF3D2423A1407300131821 /* CUCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUCollectionViewCell.h; sourceTree = "<group>"; };
+		40BF3D2523A1407300131821 /* CUCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -314,11 +323,14 @@
 		404D33AD23995F94000E0652 /* AFWKWebView */ = {
 			isa = PBXGroup;
 			children = (
+				40BF3D1D23A1404300131821 /* LCGCycleView */,
 				40BF3C4C23A00BE300131821 /* SDWebImage */,
 				40BF3C4723A0049D00131821 /* Resources */,
 				40BF3BE6239FD34700131821 /* Masonry */,
 				404D33C423995FF1000E0652 /* AFWKWebView */,
 				404D33AE23995F94000E0652 /* AppDelegate.h */,
+				40BF3D2423A1407300131821 /* CUCollectionViewCell.h */,
+				40BF3D2523A1407300131821 /* CUCollectionViewCell.m */,
 				404D33AF23995F94000E0652 /* AppDelegate.m */,
 				404D33B123995F94000E0652 /* ViewController.h */,
 				404D33B223995F94000E0652 /* ViewController.m */,
@@ -556,6 +568,17 @@
 			path = Private;
 			sourceTree = "<group>";
 		};
+		40BF3D1D23A1404300131821 /* LCGCycleView */ = {
+			isa = PBXGroup;
+			children = (
+				40BF3D1E23A1404300131821 /* LCGCycleCollectionView.m */,
+				40BF3D1F23A1404300131821 /* LCGCycleTableView.h */,
+				40BF3D2023A1404300131821 /* LCGCycleCollectionView.h */,
+				40BF3D2123A1404300131821 /* LCGCycleTableView.m */,
+			);
+			path = LCGCycleView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -638,6 +661,8 @@
 				404D33B323995F94000E0652 /* ViewController.m in Sources */,
 				40BF3D0723A00BE400131821 /* UIImage+MemoryCacheCost.m in Sources */,
 				40BF3D0523A00BE400131821 /* SDImageGraphics.m in Sources */,
+				40BF3D2623A1407300131821 /* CUCollectionViewCell.m in Sources */,
+				40BF3D2323A1404300131821 /* LCGCycleTableView.m in Sources */,
 				40BF3D1623A00BE400131821 /* SDInternalMacros.m in Sources */,
 				40BF3CE023A00BE400131821 /* SDImageIOAnimatedCoder.m in Sources */,
 				40BF3CE623A00BE400131821 /* UIImage+Transform.m in Sources */,
@@ -697,6 +722,7 @@
 				40BF3D1723A00BE400131821 /* SDFileAttributeHelper.m in Sources */,
 				40BF3CFB23A00BE400131821 /* SDImageCache.m in Sources */,
 				40BF3CF823A00BE400131821 /* SDAnimatedImageRep.m in Sources */,
+				40BF3D2223A1404300131821 /* LCGCycleCollectionView.m in Sources */,
 				40BF3C02239FD34700131821 /* ViewController+MASAdditions.m in Sources */,
 				40BF3D0B23A00BE400131821 /* SDWebImageOptionsProcessor.m in Sources */,
 				40BF3CE223A00BE400131821 /* SDAnimatedImage.m in Sources */,
