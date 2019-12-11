@@ -9,8 +9,10 @@
 #import "UpdateDownPageController.h"
 #import "Masonry.h"
 #import "UIImage+GIF.h"
+#import "UIImageView+WebCache.h"
 #import "LCGCycleCollectionView.h"
 #import "CUCollectionViewCell.h"
+#import "AFWKWebViewController.h"
 
 @interface UpdateDownPageController ()<UIScrollViewDelegate,LCGCycleCollectionViewDelegate ,LCGCycleCollectionViewDataSource>
 
@@ -18,11 +20,17 @@
 @property (strong, nonatomic) UIView *contentView;
 @property (strong, nonatomic) UIView *contaierView;
 
+
 @property (strong, nonatomic) UIImageView *bgImgView;
 @property (strong, nonatomic) UIImageView *wfBgImg;
 
+@property (strong, nonatomic) UIImageView *topIconImgView;
 @property (strong, nonatomic) UIImageView *iconImg;
+
 @property (strong, nonatomic) NSArray *imgsArray;
+/// 数据源
+@property (strong, nonatomic) NSArray *dataArray;
+
 
 @end
 
@@ -33,15 +41,137 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
+    [self sendRequest];
+    
     [self setScrollView];
     [self createSubViews];
     [self setupUI2];
+    [self setKefuView];
     
     // 可以延时调用方法
     [self performSelector:@selector(setCollectionView) withObject:nil afterDelay:2];
     NSLog(@"1");
     //    [self hhjk];
 }
+
+- (void)setData {
+    
+    NSDictionary *dict4 = self.dataArray.lastObject;
+    if (dict4) {
+        [self.topIconImgView sd_setImageWithURL:[NSURL URLWithString:dict4[@"url"]] placeholderImage:[UIImage imageNamed:@"icon"] options:SDWebImageRefreshCached];
+        [self.iconImg sd_setImageWithURL:[NSURL URLWithString:dict4[@"url"]] placeholderImage:[UIImage imageNamed:@"icon"] options:SDWebImageRefreshCached];
+    }
+}
+
+
+/// 客服
+- (void)onKefuBackView {
+    NSDictionary *dict1 = self.dataArray.firstObject;
+    [self goto_wkWebView:dict1[@"url"]];
+}
+
+/// 更新app
+- (void)updateApp {
+    if (self.dataArray.count > 2) {
+        NSDictionary *dict3 = self.dataArray[2];
+        [self goto_wkWebView:dict3[@"url"]];
+    }
+}
+/// 进入官网
+- (void)goto_guanwang:(UIButton *)sender {
+    if (self.dataArray.count > 1) {
+        NSDictionary *dict2 = self.dataArray[1];
+        [self goto_wkWebView:dict2[@"url"]];
+    }
+}
+
+
+- (void)goto_wkWebView:(NSString *)url {
+    AFWKWebViewController *web = [[AFWKWebViewController alloc] init];
+    [web loadWebURLSring:url];
+    [self.navigationController pushViewController:web animated:YES];
+}
+
+/// 异步请求
+- (void)sendRequest {
+    //1获取文件的访问路径
+    NSString *path=@"http://176.113.71.120:8062/front/wksy";
+    //2封装URL
+    NSURL *URL=[NSURL URLWithString:path];
+    //3创建请求命令
+    NSURLRequest *URlrequest=[NSURLRequest requestWithURL:URL];
+    //4创建会话对象  通过单例方法实现
+    NSURLSession *URlSession=[NSURLSession sharedSession];
+    //5执行会话的任务  通过request 请求 获取data对象
+    
+    
+    __weak __typeof(self)weakSelf = self;
+    
+    NSURLSessionDataTask *task=[URlSession dataTaskWithRequest:URlrequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        if (error) {
+            return;
+        }
+        // json 解析
+        NSDictionary *dictSession = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
+        NSLog(@"%@",dictSession);
+        NSArray *obj = dictSession[@"obj"];
+        strongSelf.dataArray = [obj copy];
+        // 更新UI，在主线程
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [strongSelf setData];
+        });
+    }];
+    //6真正的执行任务
+    [task resume];
+}
+
+
+- (void)setKefuView {
+    
+    UIView *kefuBackView = [[UIView alloc] init];
+    kefuBackView.backgroundColor = [self colorWithHex:0x4EB3F2];
+    [self.view addSubview:kefuBackView];
+    
+    //添加手势事件
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onKefuBackView)];
+    //将手势添加到需要相应的view中去
+    [kefuBackView addGestureRecognizer:tapGesture];
+    //选择触发事件的方式（默认单机触发）
+    [tapGesture setNumberOfTapsRequired:1];
+    
+    [kefuBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view.mas_bottom).offset(-100);
+        make.right.equalTo(self.view.mas_right);
+        make.size.mas_equalTo(CGSizeMake(115, 40));
+    }];
+    
+    // 热门游戏
+    UIImageView *rmBgImg = [[UIImageView alloc] init];
+    rmBgImg.image = [UIImage imageNamed:@"right-lay1"];
+    [kefuBackView addSubview:rmBgImg];
+    
+    [rmBgImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(kefuBackView.mas_centerY);
+        make.left.equalTo(kefuBackView.mas_left).offset(12);
+        make.size.mas_equalTo(CGSizeMake(18, 19));
+    }];
+    
+    UILabel *nameLabel = [[UILabel alloc] init];
+    nameLabel.text = @"在线客服";
+    nameLabel.font = [UIFont systemFontOfSize:15];
+    nameLabel.textColor = [UIColor whiteColor];
+    [kefuBackView addSubview:nameLabel];
+    
+    [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(kefuBackView.mas_centerY);
+        make.left.equalTo(rmBgImg.mas_right).offset(8);
+    }];
+    
+    [self.view bringSubviewToFront:kefuBackView];
+    
+}
+
 
 - (void)setCollectionView {
     
@@ -69,12 +199,14 @@
     [super viewWillAppear:animated];
     LCGCycleCollectionView * cv = [self.wfBgImg viewWithTag:1000] ;
     [cv setupTimer];
+    self.navigationController.navigationBarHidden = YES;
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     LCGCycleCollectionView * cv = [self.wfBgImg viewWithTag:1000] ;
     [cv invalidateTimer];
+    self.navigationController.navigationBarHidden = NO;
 }
 
 //LCGCycleCollectionView  dataSource
@@ -100,16 +232,6 @@
 
 
 
-
-
-/// 更新app
-- (void)updateApp {
-    
-}
-/// 进入官网
-- (void)goto_guanwang:(UIButton *)sender {
-    
-}
 
 - (void)setupUI2 {
     
@@ -149,14 +271,14 @@
         make.height.mas_equalTo(65);
     }];
     
-    /// 立即更新 gif图
+    /// 联系在线客服 领红包
     NSString *filePath = [[NSBundle bundleWithPath:[[NSBundle mainBundle] bundlePath]]pathForResource:@"get" ofType:@"gif"];
     NSData *imageData = [NSData dataWithContentsOfFile:filePath];
     UIImage *uImage = [UIImage sd_imageWithGIFData:imageData];
     
     UIButton *updateBtn = [[UIButton alloc] init];
     [updateBtn setBackgroundImage:uImage forState:UIControlStateNormal];
-    [updateBtn addTarget:self action:@selector(updateApp) forControlEvents:UIControlEventTouchUpInside];
+    [updateBtn addTarget:self action:@selector(onKefuBackView) forControlEvents:UIControlEventTouchUpInside];
     updateBtn.tag = 1002;
     [xzbImg addSubview:updateBtn];
     
@@ -171,11 +293,14 @@
 
 - (void)createSubViews {
     
-    UIImageView *topImgView = [[UIImageView alloc] init];
-    topImgView.image = [UIImage imageNamed:@"11x5"];
-    [self.contentView addSubview:topImgView];
+    UIImageView *topIconImgView = [[UIImageView alloc] init];
+    topIconImgView.layer.cornerRadius = 5;
+    topIconImgView.layer.masksToBounds = YES;
+    topIconImgView.image = [UIImage imageNamed:@"11x5"];
+    [self.contentView addSubview:topIconImgView];
+    _topIconImgView = topIconImgView;
     
-    [topImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [topIconImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.contentView).offset(10);
         make.size.mas_equalTo(@(40));
     }];
@@ -183,7 +308,7 @@
     UIButton *inBtn = [[UIButton alloc] init];
     [inBtn setTitle:@"进入官网" forState:UIControlStateNormal];
     [inBtn addTarget:self action:@selector(goto_guanwang:) forControlEvents:UIControlEventTouchUpInside];
-    inBtn.backgroundColor = [UIColor blueColor];
+    inBtn.backgroundColor = [self colorWithHex:0x3B81E7];
     inBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     inBtn.layer.cornerRadius = 5;
     inBtn.layer.masksToBounds = YES;
@@ -191,19 +316,20 @@
     [self.contentView addSubview:inBtn];
     
     [inBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(topImgView.mas_centerY);
+        make.centerY.equalTo(topIconImgView.mas_centerY);
         make.right.equalTo(self.contentView.mas_right).offset(-15);
         make.size.mas_equalTo(CGSizeMake(80, 25));
     }];
     
     
     UIImageView *bgImgView = [[UIImageView alloc] init];
+    bgImgView.userInteractionEnabled = YES;
     bgImgView.image = [UIImage imageNamed:@"bg"];
     [self.contentView addSubview:bgImgView];
     _bgImgView = bgImgView;
     
     [bgImgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(topImgView.mas_bottom).offset(1);
+        make.top.equalTo(topIconImgView.mas_bottom).offset(6);
         make.left.right.equalTo(self.contentView);
         make.height.mas_equalTo(531.5);
     }];
@@ -245,6 +371,8 @@
     
     // icon
     UIImageView *iconImg = [[UIImageView alloc] init];
+    iconImg.layer.cornerRadius = 5;
+    iconImg.layer.masksToBounds = YES;
     iconImg.image = [UIImage imageNamed:@"11x5"];
     [bgImgView addSubview:iconImg];
     _iconImg = iconImg;
@@ -291,7 +419,7 @@
     
     UIView *bgXZView = [[UIView alloc] init];
     bgXZView.layer.borderWidth = 1.5;
-    bgXZView.layer.borderColor = [self colorWithHex:0xD4D4D4].CGColor;
+    bgXZView.layer.borderColor = [self colorWithHex:0xD4D4D4 alpha:0.5].CGColor;
     //    bgXZView.backgroundColor = [UIColor greenColor];
     [bgImgView addSubview:bgXZView];
     
@@ -345,8 +473,8 @@
     
 }
 
-- (UIColor*)colorWithHex:(long)hexColor{
-    return [self colorWithHex:hexColor alpha:0.5];
+- (UIColor*)colorWithHex:(long)hexColor {
+    return [self colorWithHex:hexColor alpha:1];
 }
 - (UIColor *)colorWithHex:(long)hexColor alpha:(float)opacity{
     float red = ((float)((hexColor & 0xFF0000) >> 16))/255.0;
@@ -436,9 +564,9 @@
     //    contentView.backgroundColor = [UIColor greenColor];
     _contentView = contentView;
     [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(_scrollView);
+        make.edges.equalTo(self->_scrollView);
         make.width.offset(self.view.bounds.size.width);
-        make.height.equalTo(@2000);
+        make.height.equalTo(@1505);
     }];
 }
 

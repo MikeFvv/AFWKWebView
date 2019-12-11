@@ -29,7 +29,8 @@
 //    AFWKWebViewController *web = [[AFWKWebViewController alloc] init];
     UpdateDownPageController *web = [[UpdateDownPageController alloc] init];
     //    [web loadWebURLSring:self.URL];
-    self.window.rootViewController = web;//设置根视图控制器
+    
+    self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:web];;//设置根视图控制器
     _webView = web;
     
     [self.window makeKeyAndVisible];//设置成为主窗口并显示

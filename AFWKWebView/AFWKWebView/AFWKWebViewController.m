@@ -47,7 +47,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     [super viewDidLoad];
     
     //加载web页面
-//    [self webViewloadURLType];
+    [self webViewloadURLType];
     
     //添加到主控制器上
     [self.view addSubview:self.wkWebView];
@@ -141,7 +141,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     self.loadType = loadWebURLString;
     
     //加载web页面
-    [self webViewloadURLType];
+//    [self webViewloadURLType];
 }
 
 - (void)loadWebHTMLSring:(NSString *)string{
