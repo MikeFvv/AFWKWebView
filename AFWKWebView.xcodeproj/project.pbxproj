@@ -97,9 +97,11 @@
 		40BF3D1A23A00BE400131821 /* NSBezierPath+RoundedCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = 40BF3CD723A00BE300131821 /* NSBezierPath+RoundedCorners.m */; };
 		40BF3D1B23A00BE400131821 /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = 40BF3CD823A00BE300131821 /* UIColor+HexString.m */; };
 		40BF3D1C23A00BE400131821 /* SDAssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 40BF3CD923A00BE300131821 /* SDAssociatedObject.m */; };
-		40BF3D2223A1404300131821 /* LCGCycleCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40BF3D1E23A1404300131821 /* LCGCycleCollectionView.m */; };
-		40BF3D2323A1404300131821 /* LCGCycleTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40BF3D2123A1404300131821 /* LCGCycleTableView.m */; };
-		40BF3D2623A1407300131821 /* CUCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 40BF3D2523A1407300131821 /* CUCollectionViewCell.m */; };
+		40C3F4FB23A2B03000465319 /* HXQMarqueeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C3F4F423A2B03000465319 /* HXQMarqueeView.m */; };
+		40C3F4FC23A2B03000465319 /* HXQBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C3F4F623A2B03000465319 /* HXQBoardView.m */; };
+		40C3F4FD23A2B03000465319 /* HXQMarqueeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C3F4F723A2B03000465319 /* HXQMarqueeModel.m */; };
+		40C3F4FE23A2B03000465319 /* UIView+Extionsiton.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C3F4F823A2B03000465319 /* UIView+Extionsiton.m */; };
+		40C3F50023A2B0C300465319 /* data.plist in Resources */ = {isa = PBXBuildFile; fileRef = 40C3F4FF23A2B0C300465319 /* data.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -285,12 +287,15 @@
 		40BF3CD723A00BE300131821 /* NSBezierPath+RoundedCorners.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+RoundedCorners.m"; sourceTree = "<group>"; };
 		40BF3CD823A00BE300131821 /* UIColor+HexString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexString.m"; sourceTree = "<group>"; };
 		40BF3CD923A00BE300131821 /* SDAssociatedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDAssociatedObject.m; sourceTree = "<group>"; };
-		40BF3D1E23A1404300131821 /* LCGCycleCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCGCycleCollectionView.m; sourceTree = "<group>"; };
-		40BF3D1F23A1404300131821 /* LCGCycleTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCGCycleTableView.h; sourceTree = "<group>"; };
-		40BF3D2023A1404300131821 /* LCGCycleCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCGCycleCollectionView.h; sourceTree = "<group>"; };
-		40BF3D2123A1404300131821 /* LCGCycleTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCGCycleTableView.m; sourceTree = "<group>"; };
-		40BF3D2423A1407300131821 /* CUCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUCollectionViewCell.h; sourceTree = "<group>"; };
-		40BF3D2523A1407300131821 /* CUCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUCollectionViewCell.m; sourceTree = "<group>"; };
+		40C3F4F323A2B03000465319 /* HXQMarqueeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXQMarqueeModel.h; sourceTree = "<group>"; };
+		40C3F4F423A2B03000465319 /* HXQMarqueeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXQMarqueeView.m; sourceTree = "<group>"; };
+		40C3F4F523A2B03000465319 /* UIView+Extionsiton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extionsiton.h"; sourceTree = "<group>"; };
+		40C3F4F623A2B03000465319 /* HXQBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXQBoardView.m; sourceTree = "<group>"; };
+		40C3F4F723A2B03000465319 /* HXQMarqueeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXQMarqueeModel.m; sourceTree = "<group>"; };
+		40C3F4F823A2B03000465319 /* UIView+Extionsiton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extionsiton.m"; sourceTree = "<group>"; };
+		40C3F4F923A2B03000465319 /* HXQMarqueeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXQMarqueeView.h; sourceTree = "<group>"; };
+		40C3F4FA23A2B03000465319 /* HXQBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXQBoardView.h; sourceTree = "<group>"; };
+		40C3F4FF23A2B0C300465319 /* data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = data.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -355,15 +360,13 @@
 		404D33AD23995F94000E0652 /* AFWKWebView */ = {
 			isa = PBXGroup;
 			children = (
+				40C3F4F223A2B03000465319 /* MarqueeView */,
 				26E34EB623A20CBC004C2455 /* Masonry */,
-				40BF3D1D23A1404300131821 /* LCGCycleView */,
 				40BF3C4C23A00BE300131821 /* SDWebImage */,
 				40BF3C4723A0049D00131821 /* Resources */,
 				404D33C423995FF1000E0652 /* AFWKWebView */,
 				404D33AE23995F94000E0652 /* AppDelegate.h */,
 				404D33AF23995F94000E0652 /* AppDelegate.m */,
-				40BF3D2423A1407300131821 /* CUCollectionViewCell.h */,
-				40BF3D2523A1407300131821 /* CUCollectionViewCell.m */,
 				404D33B123995F94000E0652 /* ViewController.h */,
 				404D33B223995F94000E0652 /* ViewController.m */,
 				40BF3BE1239FD2CE00131821 /* UpdateDownPageController.h */,
@@ -567,15 +570,20 @@
 			path = Private;
 			sourceTree = "<group>";
 		};
-		40BF3D1D23A1404300131821 /* LCGCycleView */ = {
+		40C3F4F223A2B03000465319 /* MarqueeView */ = {
 			isa = PBXGroup;
 			children = (
-				40BF3D1E23A1404300131821 /* LCGCycleCollectionView.m */,
-				40BF3D1F23A1404300131821 /* LCGCycleTableView.h */,
-				40BF3D2023A1404300131821 /* LCGCycleCollectionView.h */,
-				40BF3D2123A1404300131821 /* LCGCycleTableView.m */,
+				40C3F4FF23A2B0C300465319 /* data.plist */,
+				40C3F4F323A2B03000465319 /* HXQMarqueeModel.h */,
+				40C3F4F423A2B03000465319 /* HXQMarqueeView.m */,
+				40C3F4F523A2B03000465319 /* UIView+Extionsiton.h */,
+				40C3F4F623A2B03000465319 /* HXQBoardView.m */,
+				40C3F4F723A2B03000465319 /* HXQMarqueeModel.m */,
+				40C3F4F823A2B03000465319 /* UIView+Extionsiton.m */,
+				40C3F4F923A2B03000465319 /* HXQMarqueeView.h */,
+				40C3F4FA23A2B03000465319 /* HXQBoardView.h */,
 			);
-			path = LCGCycleView;
+			path = MarqueeView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -641,6 +649,7 @@
 				404D33B823995F96000E0652 /* Assets.xcassets in Resources */,
 				404D33B623995F94000E0652 /* Main.storyboard in Resources */,
 				404D33CD23996473000E0652 /* WKJSPOST.html in Resources */,
+				40C3F50023A2B0C300465319 /* data.plist in Resources */,
 				40BF3C4B23A004CE00131821 /* update.gif in Resources */,
 				40BF3C4923A004BC00131821 /* get.gif in Resources */,
 			);
@@ -661,8 +670,6 @@
 				404D33B323995F94000E0652 /* ViewController.m in Sources */,
 				40BF3D0723A00BE400131821 /* UIImage+MemoryCacheCost.m in Sources */,
 				40BF3D0523A00BE400131821 /* SDImageGraphics.m in Sources */,
-				40BF3D2623A1407300131821 /* CUCollectionViewCell.m in Sources */,
-				40BF3D2323A1404300131821 /* LCGCycleTableView.m in Sources */,
 				40BF3D1623A00BE400131821 /* SDInternalMacros.m in Sources */,
 				40BF3CE023A00BE400131821 /* SDImageIOAnimatedCoder.m in Sources */,
 				40BF3CE623A00BE400131821 /* UIImage+Transform.m in Sources */,
@@ -672,6 +679,7 @@
 				40BF3CDD23A00BE400131821 /* SDImageCoder.m in Sources */,
 				40BF3D1923A00BE400131821 /* SDAsyncBlockOperation.m in Sources */,
 				40BF3CDB23A00BE400131821 /* NSImage+Compatibility.m in Sources */,
+				40C3F4FE23A2B03000465319 /* UIView+Extionsiton.m in Sources */,
 				40BF3CDC23A00BE400131821 /* SDAnimatedImageView+WebCache.m in Sources */,
 				40BF3CDA23A00BE400131821 /* SDImageHEICCoder.m in Sources */,
 				40BF3D1423A00BE400131821 /* SDDeviceHelper.m in Sources */,
@@ -708,6 +716,8 @@
 				26E34ED623A20CBD004C2455 /* NSArray+MASAdditions.m in Sources */,
 				40BF3D1523A00BE400131821 /* SDWeakProxy.m in Sources */,
 				40BF3CFE23A00BE400131821 /* SDWebImageDownloaderOperation.m in Sources */,
+				40C3F4FD23A2B03000465319 /* HXQMarqueeModel.m in Sources */,
+				40C3F4FC23A2B03000465319 /* HXQBoardView.m in Sources */,
 				26E34EDA23A20CBD004C2455 /* MASViewAttribute.m in Sources */,
 				26E34ED523A20CBD004C2455 /* MASLayoutConstraint.m in Sources */,
 				40BF3CEE23A00BE400131821 /* SDMemoryCache.m in Sources */,
@@ -724,8 +734,8 @@
 				40BF3D1723A00BE400131821 /* SDFileAttributeHelper.m in Sources */,
 				40BF3CFB23A00BE400131821 /* SDImageCache.m in Sources */,
 				40BF3CF823A00BE400131821 /* SDAnimatedImageRep.m in Sources */,
-				40BF3D2223A1404300131821 /* LCGCycleCollectionView.m in Sources */,
 				40BF3D0B23A00BE400131821 /* SDWebImageOptionsProcessor.m in Sources */,
+				40C3F4FB23A2B03000465319 /* HXQMarqueeView.m in Sources */,
 				40BF3CE223A00BE400131821 /* SDAnimatedImage.m in Sources */,
 				40BF3CFF23A00BE400131821 /* SDImageLoadersManager.m in Sources */,
 				40BF3CF423A00BE400131821 /* SDImageCoderHelper.m in Sources */,

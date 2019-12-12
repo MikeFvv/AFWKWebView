@@ -10,11 +10,14 @@
 #import "Masonry.h"
 #import "UIImage+GIF.h"
 #import "UIImageView+WebCache.h"
-#import "LCGCycleCollectionView.h"
-#import "CUCollectionViewCell.h"
 #import "AFWKWebViewController.h"
 
-@interface UpdateDownPageController ()<UIScrollViewDelegate,LCGCycleCollectionViewDelegate ,LCGCycleCollectionViewDataSource>
+#import "HXQMarqueeModel.h"
+#import "HXQMarqueeView.h"
+#import "UIView+Extionsiton.h"
+
+
+@interface UpdateDownPageController ()<UIScrollViewDelegate>
 
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIView *contentView;
@@ -36,6 +39,17 @@
 
 @implementation UpdateDownPageController
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
+
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -49,7 +63,7 @@
     [self setKefuView];
     
     // 可以延时调用方法
-    [self performSelector:@selector(setCollectionView) withObject:nil afterDelay:2];
+    [self performSelector:@selector(setSlideScrollView) withObject:nil afterDelay:1];
     NSLog(@"1");
     //    [self hhjk];
 }
@@ -177,59 +191,36 @@
 }
 
 
-- (void)setCollectionView {
+- (void)setSlideScrollView {
     
-    _imgsArray = @[@"pt1_1",@"pt1_2",@"pt1_3",@"pt1_4",@"pt1_5",@"pt1_6"];
+    NSString *path =  [[NSBundle mainBundle] pathForResource:@"data.plist" ofType:nil];
+    NSArray * arr = [[NSArray alloc] initWithContentsOfFile:path];
     
-    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    flowLayout.minimumLineSpacing = 2;
-    flowLayout.itemSize = CGSizeMake(103, 137.5) ;
-    flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    LCGCycleCollectionView * cv = [[LCGCycleCollectionView alloc]initWithFrame:CGRectMake(0, 503-137.5, self.view.frame.size.width, 137.5) collectionViewLayout:flowLayout];
-    cv.delegate = self;
-    cv.dataSource = self ;
-    //    cv.autoScroll = NO ;
-    cv.displacement = 0.5;
-    cv.timeInterval = 1;
-    cv.pagingEnabled = YES ;
-    cv.changePageCount = 1 ;
-    cv.tag = 1000 ;
-    [cv registerClass:[CUCollectionViewCell class] forCellWithReuseIdentifier:@"CUCollectionViewCell"] ;
-    [self.wfBgImg addSubview:cv];
+    //字典转模型
+    NSMutableArray *modelList = [NSMutableArray array];
+    
+    for (NSInteger index = 0; index < 20; index++) {
+        for (NSDictionary *dict in arr) {
+            HXQMarqueeModel *model = [[HXQMarqueeModel alloc] initWithDictionary:dict];
+            [modelList addObject:model];
+        }
+    }
+    
+    
+    HXQMarqueeView *marqueeView = [[HXQMarqueeView alloc] initWithFrame:CGRectMake(0, 503-137.5, self.view.bounds.size.width, 137.5)];
+    marqueeView.backgroundColor = [UIColor clearColor];
+    [self.wfBgImg addSubview:marqueeView];
+    //    marqueeView.isLeftSlide = NO;
+    [marqueeView setItems:modelList];
+    [marqueeView startAnimation];
+    
+    [marqueeView addMarueeViewItemClickBlock:^(HXQMarqueeModel *model) {
+        NSLog(@"%@",model.userImg);
+    }];
+    
+    
     
 }
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    LCGCycleCollectionView * cv = [self.wfBgImg viewWithTag:1000] ;
-    [cv setupTimer];
-    self.navigationController.navigationBarHidden = YES;
-}
-
--(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
-    LCGCycleCollectionView * cv = [self.wfBgImg viewWithTag:1000] ;
-    [cv invalidateTimer];
-    self.navigationController.navigationBarHidden = NO;
-}
-
-//LCGCycleCollectionView  dataSource
--(NSInteger)cycleCollectionView:(LCGCycleCollectionView *)ycleCollectionView collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.imgsArray.count;
-}
-
-- (__kindof UICollectionViewCell *)cycleCollectionView:(LCGCycleCollectionView *)cycleCollectionView collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    CUCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CUCollectionViewCell" forIndexPath:indexPath];
-    //    cell.backgroundColor = [UIColor blueColor];
-    cell.imageView.image = [UIImage imageNamed:self.imgsArray[indexPath.row]];
-    return cell ;
-}
-
-
-
-
-
-
 
 
 
