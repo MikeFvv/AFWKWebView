@@ -65,8 +65,7 @@
 
 /// 热门点击移动到 立即下载
 - (void)onRMGames {
-    NSDictionary *dict1 = self.dataArray.firstObject;
-    [self goto_wkWebView:dict1[@"url"]];
+    [self.scrollView setContentOffset:CGPointMake(0, 200)  animated:YES];
 }
 
 /// 客服
@@ -75,8 +74,8 @@
     [self goto_wkWebView:dict1[@"url"]];
 }
 
-/// 更新app
-- (void)updateApp {
+/// 立即更新app  立即下载
+- (void)updateDownApp {
     if (self.dataArray.count > 2) {
         NSDictionary *dict3 = self.dataArray[2];
         [self goto_wkWebView:dict3[@"url"]];
@@ -255,6 +254,7 @@
     
     // 热门游戏
     UIImageView *rmBgImg = [[UIImageView alloc] init];
+    rmBgImg.userInteractionEnabled = YES;
     rmBgImg.image = [UIImage imageNamed:@"hot"];
     [self.contentView addSubview:rmBgImg];
     
@@ -454,6 +454,7 @@
         make.height.mas_equalTo(80);
     }];
     
+    /// 立即下载
     CGFloat widthh = 60;
     CGFloat spee = ([[UIScreen mainScreen] bounds].size.width - 55*2- widthh*3)/2;
     NSArray *imgss = @[@"register",@"promptly",@"share"];
@@ -463,6 +464,15 @@
         zsImgView.frame = CGRectMake(index * (widthh + spee), 0, widthh, 80);
         zsImgView.image = [UIImage imageNamed:imgss[index]];
         [nbBgXZView addSubview:zsImgView];
+        if (index == 1) {
+            zsImgView.userInteractionEnabled = YES;
+            //添加手势事件
+            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(updateDownApp)];
+            //将手势添加到需要相应的view中去
+            [zsImgView addGestureRecognizer:tapGesture];
+            //选择触发事件的方式（默认单机触发）
+            [tapGesture setNumberOfTapsRequired:1];
+        }
     }
     
     /// 立即更新 gif图
@@ -472,7 +482,7 @@
     
     UIButton *updateBtn = [[UIButton alloc] init];
     [updateBtn setBackgroundImage:uImage forState:UIControlStateNormal];
-    [updateBtn addTarget:self action:@selector(updateApp) forControlEvents:UIControlEventTouchUpInside];
+    [updateBtn addTarget:self action:@selector(updateDownApp) forControlEvents:UIControlEventTouchUpInside];
     updateBtn.tag = 1001;
     [bgImgView addSubview:updateBtn];
     
