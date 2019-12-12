@@ -199,7 +199,7 @@
     //字典转模型
     NSMutableArray *modelList = [NSMutableArray array];
     
-    for (NSInteger index = 0; index < 20; index++) {
+    for (NSInteger index = 0; index < 30; index++) {
         for (NSDictionary *dict in arr) {
             HXQMarqueeModel *model = [[HXQMarqueeModel alloc] initWithDictionary:dict];
             [modelList addObject:model];
@@ -210,7 +210,7 @@
     HXQMarqueeView *marqueeView = [[HXQMarqueeView alloc] initWithFrame:CGRectMake(0, 503-137.5, self.view.bounds.size.width, 137.5)];
     marqueeView.backgroundColor = [UIColor clearColor];
     [self.wfBgImg addSubview:marqueeView];
-    //    marqueeView.isLeftSlide = NO;
+//    marqueeView.isLeftSlide = NO;
     [marqueeView setItems:modelList];
     [marqueeView startAnimation];
     
