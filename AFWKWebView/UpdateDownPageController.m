@@ -63,6 +63,11 @@
     }
 }
 
+/// 热门点击移动到 立即下载
+- (void)onRMGames {
+    NSDictionary *dict1 = self.dataArray.firstObject;
+    [self goto_wkWebView:dict1[@"url"]];
+}
 
 /// 客服
 - (void)onKefuBackView {
@@ -146,12 +151,12 @@
         make.size.mas_equalTo(CGSizeMake(115, 40));
     }];
     
-    // 热门游戏
-    UIImageView *rmBgImg = [[UIImageView alloc] init];
-    rmBgImg.image = [UIImage imageNamed:@"right-lay1"];
-    [kefuBackView addSubview:rmBgImg];
     
-    [rmBgImg mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIImageView *icImg = [[UIImageView alloc] init];
+    icImg.image = [UIImage imageNamed:@"right-lay1"];
+    [kefuBackView addSubview:icImg];
+    
+    [icImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(kefuBackView.mas_centerY);
         make.left.equalTo(kefuBackView.mas_left).offset(12);
         make.size.mas_equalTo(CGSizeMake(18, 19));
@@ -165,7 +170,7 @@
     
     [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(kefuBackView.mas_centerY);
-        make.left.equalTo(rmBgImg.mas_right).offset(8);
+        make.left.equalTo(icImg.mas_right).offset(8);
     }];
     
     [self.view bringSubviewToFront:kefuBackView];
@@ -238,7 +243,7 @@
     // 玩法多样
     UIImageView *wfBgImg = [[UIImageView alloc] init];
     wfBgImg.userInteractionEnabled = YES;
-    wfBgImg.image = [UIImage imageNamed:@"palying"];
+    wfBgImg.image = [UIImage imageNamed:@"agein"];
     [self.contentView addSubview:wfBgImg];
     _wfBgImg = wfBgImg;
     
@@ -258,6 +263,13 @@
         make.left.right.equalTo(self.contentView);
         make.height.mas_equalTo(351);
     }];
+    //添加手势事件
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onRMGames)];
+    //将手势添加到需要相应的view中去
+    [rmBgImg addGestureRecognizer:tapGesture];
+    //选择触发事件的方式（默认单机触发）
+    [tapGesture setNumberOfTapsRequired:1];
+    
     
     // 下载
     UIImageView *xzbImg = [[UIImageView alloc] init];
