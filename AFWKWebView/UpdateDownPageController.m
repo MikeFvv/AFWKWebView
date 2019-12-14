@@ -112,8 +112,21 @@
 
 /// 异步请求
 - (void)sendRequest {
-    //1获取文件的访问路径
-    NSString *path=@"http://176.113.71.120:8062/front/wksy";
+    
+    NSInteger appUrlType = 0;
+    
+     //1获取文件的访问路径
+    NSString *path = nil;
+    if (appUrlType == 1) {
+         path=@"http://176.113.71.120:8062/front/800";
+    } else if (appUrlType == 2) {
+        
+    } else {   /// 0
+        path=@"http://176.113.71.120:8062/front/wksy";
+    }
+    
+    
+    
     //2封装URL
     NSURL *URL=[NSURL URLWithString:path];
     //3创建请求命令
