@@ -63,7 +63,7 @@
     [self setKefuView];
     
     // 可以延时调用方法
-    [self performSelector:@selector(setSlideScrollView) withObject:nil afterDelay:1];
+    [self performSelector:@selector(setSlideScrollView) withObject:nil afterDelay:0.5];
     NSLog(@"1");
     //    [self hhjk];
 }
