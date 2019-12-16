@@ -1,5 +1,5 @@
 //
-//  HXQMarqueeView.h
+//  AFScrollView.h
 //  AFWKWebView
 //
 //  Created by Tiny on 2019/12/5.
@@ -8,15 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@class HXQMarqueeModel;
-@interface HXQMarqueeView : UIView
+@class AFItemModel;
+@interface AFScrollView : UIView
 
 /// 是否向左滑动
 @property (nonatomic, assign) BOOL isLeftSlide;
 
--(void)setItems:(NSArray <HXQMarqueeModel *>*)items;
+-(void)setItems:(NSArray <AFItemModel *>*)items;
 
--(void)addMarueeViewItemClickBlock:(void(^)(HXQMarqueeModel *model))block;
+-(void)addMarueeViewItemClickBlock:(void(^)(AFItemModel *model))block;
 
 -(void)stopAnimation;
 

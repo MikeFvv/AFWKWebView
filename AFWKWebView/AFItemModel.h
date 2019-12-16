@@ -1,5 +1,5 @@
 //
-//  HXQMarqueeModel.h
+//  AFItemModel.h
 //  AFWKWebView
 //
 //  Created by Tiny on 2019/12/5.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface HXQMarqueeModel : NSObject
+@interface AFItemModel : NSObject
 
 @property (nonatomic , copy)NSString *userImg;  //头像
 

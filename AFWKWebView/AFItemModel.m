@@ -1,14 +1,14 @@
 //
-//  HXQMarqueeModel.m
+//  AFItemModel.m
 //  AFWKWebView
 //
 //  Created by Tiny on 2019/12/5.
 //  Copyright © 2019 AFan. All rights reserved.
 //
 
-#import "HXQMarqueeModel.h"
+#import "AFItemModel.h"
 
-@implementation HXQMarqueeModel
+@implementation AFItemModel
 
 -(void)setTitle:(NSString *)title{
     self.width = 103;
@@ -19,7 +19,7 @@
         return YES;
     }
     if ([object isKindOfClass:[self class]]) {
-        HXQMarqueeModel *obj = (HXQMarqueeModel *)object;
+        AFItemModel *obj = (AFItemModel *)object;
         
         return self.width == obj.width &&
         [self.userImg isEqualToString:obj.userImg];

@@ -1,28 +1,28 @@
 //
-//  HXQMarqueeView.m
+//  AFScrollView.m
 //  AFWKWebView
 //
 //  Created by Tiny on 2019/12/5.
 //  Copyright © 2019 AFan. All rights reserved.
 //
 
-#import "HXQMarqueeView.h"
-#import "HXQMarqueeModel.h"
-#import "HXQBoardView.h"
+#import "AFScrollView.h"
+#import "AFItemModel.h"
+#import "AFIiemView.h"
 #import "UIView+Extionsiton.h"
 
-@interface HXQMarqueeView ()
+@interface AFScrollView ()
 
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) NSMutableArray *viewList;
 @property (nonatomic, strong) NSArray *models;
-@property (nonatomic, copy) void (^itelClick)(HXQMarqueeModel *);
+@property (nonatomic, copy) void (^itelClick)(AFItemModel *);
 
 
 @end
 
-@implementation HXQMarqueeView
+@implementation AFScrollView
 
 -(void)dealloc{
     [self.timer  invalidate];
@@ -69,20 +69,20 @@
     
     //先移除之前的item
     for (UIView *v in self.scrollView.subviews) {
-        if ([v isKindOfClass:[HXQBoardView class]]) {
+        if ([v isKindOfClass:[AFIiemView class]]) {
             [v removeFromSuperview];
         }
     }
     [self.viewList removeAllObjects];
     
     //创建新的item
-    HXQBoardView *last = nil;
+    AFIiemView *last = nil;
     CGFloat margin = 2;
     for (int i = 0; i < items.count; i++) {
-        HXQMarqueeModel *model = items[i];
-        HXQBoardView * lb = [[HXQBoardView alloc] initWithFrame:CGRectMake(last.frame.origin.x + last.bounds.size.width + margin, 0, model.width, 137.5) Model:model];
+        AFItemModel *model = items[i];
+        AFIiemView * lb = [[AFIiemView alloc] initWithFrame:CGRectMake(last.frame.origin.x + last.bounds.size.width + margin, 0, model.width, 137.5) Model:model];
         __weak typeof(self) weakself = self;
-        lb.boardItemClick = ^(HXQMarqueeModel *xModel) {
+        lb.boardItemClick = ^(AFItemModel *xModel) {
             if (weakself.itelClick) {
                 weakself.itelClick(xModel);
             }
@@ -140,7 +140,7 @@
 }
 
 #pragma mark - Private
--(void)addMarueeViewItemClickBlock:(void (^)(HXQMarqueeModel *))block{
+-(void)addMarueeViewItemClickBlock:(void (^)(AFItemModel *))block{
     self.itelClick = block;
 }
 

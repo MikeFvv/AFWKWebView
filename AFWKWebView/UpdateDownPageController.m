@@ -12,8 +12,8 @@
 #import "UIImageView+WebCache.h"
 #import "AFWKWebViewController.h"
 
-#import "HXQMarqueeModel.h"
-#import "HXQMarqueeView.h"
+#import "AFItemModel.h"
+#import "AFScrollView.h"
 #import "UIView+Extionsiton.h"
 #import "BANetManager_OC.h"
 
@@ -71,7 +71,6 @@
     
     NSInteger appUrlType = 4;
     
-    //1获取文件的访问路径
     NSString *path = nil;
     if (appUrlType == 1) { /// 悟空彩票
         path=@"https://wkcpappxiufugongjujsavt2nhxz.com:8443/front/wkcp";
@@ -91,8 +90,6 @@
         path=@"http://176.113.71.120:8062/front/800";
     }
     
-    
-    // 如果打印数据不完整，是因为 Xcode 8 版本问题，请下断点打印数据
     BADataEntity *entity = [BADataEntity new];
     entity.urlString = path;
     entity.needCache = YES;
@@ -228,18 +225,18 @@
     NSMutableArray *modelList = [NSMutableArray array];
     for (NSInteger index = 0; index < 30; index++) {
         for (NSDictionary *dict in arr) {
-            HXQMarqueeModel *model = [[HXQMarqueeModel alloc] initWithDictionary:dict];
+            AFItemModel *model = [[AFItemModel alloc] initWithDictionary:dict];
             [modelList addObject:model];
         }
     }
-    HXQMarqueeView *marqueeView = [[HXQMarqueeView alloc] initWithFrame:CGRectMake(0, 503-137.5, self.view.bounds.size.width, 137.5)];
+    AFScrollView *marqueeView = [[AFScrollView alloc] initWithFrame:CGRectMake(0, 503-137.5, self.view.bounds.size.width, 137.5)];
     marqueeView.backgroundColor = [UIColor clearColor];
     [self.wfBgImg addSubview:marqueeView];
 //    marqueeView.isLeftSlide = NO;
     [marqueeView setItems:modelList];
     [marqueeView startAnimation];
     
-    [marqueeView addMarueeViewItemClickBlock:^(HXQMarqueeModel *model) {
+    [marqueeView addMarueeViewItemClickBlock:^(AFItemModel *model) {
         NSLog(@"%@",model.userImg);
     }];
 }

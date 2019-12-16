@@ -111,9 +111,9 @@
 		40BF3D1A23A00BE400131821 /* NSBezierPath+RoundedCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = 40BF3CD723A00BE300131821 /* NSBezierPath+RoundedCorners.m */; };
 		40BF3D1B23A00BE400131821 /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = 40BF3CD823A00BE300131821 /* UIColor+HexString.m */; };
 		40BF3D1C23A00BE400131821 /* SDAssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 40BF3CD923A00BE300131821 /* SDAssociatedObject.m */; };
-		40C3F4FB23A2B03000465319 /* HXQMarqueeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C3F4F423A2B03000465319 /* HXQMarqueeView.m */; };
-		40C3F4FC23A2B03000465319 /* HXQBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C3F4F623A2B03000465319 /* HXQBoardView.m */; };
-		40C3F4FD23A2B03000465319 /* HXQMarqueeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C3F4F723A2B03000465319 /* HXQMarqueeModel.m */; };
+		40C3F4FB23A2B03000465319 /* AFScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C3F4F423A2B03000465319 /* AFScrollView.m */; };
+		40C3F4FC23A2B03000465319 /* AFIiemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C3F4F623A2B03000465319 /* AFIiemView.m */; };
+		40C3F4FD23A2B03000465319 /* AFItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C3F4F723A2B03000465319 /* AFItemModel.m */; };
 		40C3F4FE23A2B03000465319 /* UIView+Extionsiton.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C3F4F823A2B03000465319 /* UIView+Extionsiton.m */; };
 		40C3F50023A2B0C300465319 /* data.plist in Resources */ = {isa = PBXBuildFile; fileRef = 40C3F4FF23A2B0C300465319 /* data.plist */; };
 /* End PBXBuildFile section */
@@ -333,14 +333,14 @@
 		40BF3CD723A00BE300131821 /* NSBezierPath+RoundedCorners.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+RoundedCorners.m"; sourceTree = "<group>"; };
 		40BF3CD823A00BE300131821 /* UIColor+HexString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexString.m"; sourceTree = "<group>"; };
 		40BF3CD923A00BE300131821 /* SDAssociatedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDAssociatedObject.m; sourceTree = "<group>"; };
-		40C3F4F323A2B03000465319 /* HXQMarqueeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXQMarqueeModel.h; sourceTree = "<group>"; };
-		40C3F4F423A2B03000465319 /* HXQMarqueeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXQMarqueeView.m; sourceTree = "<group>"; };
+		40C3F4F323A2B03000465319 /* AFItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFItemModel.h; sourceTree = "<group>"; };
+		40C3F4F423A2B03000465319 /* AFScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFScrollView.m; sourceTree = "<group>"; };
 		40C3F4F523A2B03000465319 /* UIView+Extionsiton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extionsiton.h"; sourceTree = "<group>"; };
-		40C3F4F623A2B03000465319 /* HXQBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXQBoardView.m; sourceTree = "<group>"; };
-		40C3F4F723A2B03000465319 /* HXQMarqueeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXQMarqueeModel.m; sourceTree = "<group>"; };
+		40C3F4F623A2B03000465319 /* AFIiemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFIiemView.m; sourceTree = "<group>"; };
+		40C3F4F723A2B03000465319 /* AFItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFItemModel.m; sourceTree = "<group>"; };
 		40C3F4F823A2B03000465319 /* UIView+Extionsiton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extionsiton.m"; sourceTree = "<group>"; };
-		40C3F4F923A2B03000465319 /* HXQMarqueeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXQMarqueeView.h; sourceTree = "<group>"; };
-		40C3F4FA23A2B03000465319 /* HXQBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXQBoardView.h; sourceTree = "<group>"; };
+		40C3F4F923A2B03000465319 /* AFScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFScrollView.h; sourceTree = "<group>"; };
+		40C3F4FA23A2B03000465319 /* AFIiemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFIiemView.h; sourceTree = "<group>"; };
 		40C3F4FF23A2B0C300465319 /* data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = data.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -462,7 +462,6 @@
 				26E7545923A7938F00C2B447 /* AFNetworking */,
 				26E7544523A7938F00C2B447 /* BANetManager */,
 				26E7545023A7938F00C2B447 /* YYCache */,
-				40C3F4F223A2B03000465319 /* AFCyclicScrollImage */,
 				26E34EB623A20CBC004C2455 /* Masonry */,
 				40BF3C4C23A00BE300131821 /* SDWebImage */,
 				40BF3C4723A0049D00131821 /* Resources */,
@@ -473,6 +472,14 @@
 				404D33B223995F94000E0652 /* ViewController.m */,
 				40BF3BE1239FD2CE00131821 /* UpdateDownPageController.h */,
 				40BF3BE2239FD2CE00131821 /* UpdateDownPageController.m */,
+				40C3F4F923A2B03000465319 /* AFScrollView.h */,
+				40C3F4F423A2B03000465319 /* AFScrollView.m */,
+				40C3F4F323A2B03000465319 /* AFItemModel.h */,
+				40C3F4F723A2B03000465319 /* AFItemModel.m */,
+				40C3F4F523A2B03000465319 /* UIView+Extionsiton.h */,
+				40C3F4F823A2B03000465319 /* UIView+Extionsiton.m */,
+				40C3F4F623A2B03000465319 /* AFIiemView.m */,
+				40C3F4FA23A2B03000465319 /* AFIiemView.h */,
 				404D33B423995F94000E0652 /* Main.storyboard */,
 				404D33B723995F96000E0652 /* Assets.xcassets */,
 				404D33B923995F96000E0652 /* LaunchScreen.storyboard */,
@@ -497,6 +504,7 @@
 		40BF3C4723A0049D00131821 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				40C3F4FF23A2B0C300465319 /* data.plist */,
 				40BF3C4A23A004CE00131821 /* update.gif */,
 				40BF3C4823A004BC00131821 /* get.gif */,
 			);
@@ -672,22 +680,6 @@
 			path = Private;
 			sourceTree = "<group>";
 		};
-		40C3F4F223A2B03000465319 /* AFCyclicScrollImage */ = {
-			isa = PBXGroup;
-			children = (
-				40C3F4FF23A2B0C300465319 /* data.plist */,
-				40C3F4F923A2B03000465319 /* HXQMarqueeView.h */,
-				40C3F4F423A2B03000465319 /* HXQMarqueeView.m */,
-				40C3F4F323A2B03000465319 /* HXQMarqueeModel.h */,
-				40C3F4F723A2B03000465319 /* HXQMarqueeModel.m */,
-				40C3F4F523A2B03000465319 /* UIView+Extionsiton.h */,
-				40C3F4F823A2B03000465319 /* UIView+Extionsiton.m */,
-				40C3F4F623A2B03000465319 /* HXQBoardView.m */,
-				40C3F4FA23A2B03000465319 /* HXQBoardView.h */,
-			);
-			path = AFCyclicScrollImage;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -823,9 +815,9 @@
 				26E7547523A7938F00C2B447 /* AFSecurityPolicy.m in Sources */,
 				40BF3D1523A00BE400131821 /* SDWeakProxy.m in Sources */,
 				40BF3CFE23A00BE400131821 /* SDWebImageDownloaderOperation.m in Sources */,
-				40C3F4FD23A2B03000465319 /* HXQMarqueeModel.m in Sources */,
+				40C3F4FD23A2B03000465319 /* AFItemModel.m in Sources */,
 				26E7546A23A7938F00C2B447 /* UIImage+CompressImage.m in Sources */,
-				40C3F4FC23A2B03000465319 /* HXQBoardView.m in Sources */,
+				40C3F4FC23A2B03000465319 /* AFIiemView.m in Sources */,
 				26E34EDA23A20CBD004C2455 /* MASViewAttribute.m in Sources */,
 				26E34ED523A20CBD004C2455 /* MASLayoutConstraint.m in Sources */,
 				40BF3CEE23A00BE400131821 /* SDMemoryCache.m in Sources */,
@@ -847,7 +839,7 @@
 				40BF3CFB23A00BE400131821 /* SDImageCache.m in Sources */,
 				40BF3CF823A00BE400131821 /* SDAnimatedImageRep.m in Sources */,
 				40BF3D0B23A00BE400131821 /* SDWebImageOptionsProcessor.m in Sources */,
-				40C3F4FB23A2B03000465319 /* HXQMarqueeView.m in Sources */,
+				40C3F4FB23A2B03000465319 /* AFScrollView.m in Sources */,
 				40BF3CE223A00BE400131821 /* SDAnimatedImage.m in Sources */,
 				40BF3CFF23A00BE400131821 /* SDImageLoadersManager.m in Sources */,
 				40BF3CF423A00BE400131821 /* SDImageCoderHelper.m in Sources */,

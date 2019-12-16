@@ -1,26 +1,26 @@
 //
-//  HXQBoardView.m
+//  AFIiemView.m
 //  AFWKWebView
 //
 //  Created by Tiny on 2019/12/5.
 //  Copyright © 2019 AFan. All rights reserved.
 //
 
-#import "HXQBoardView.h"
-#import "HXQMarqueeModel.h"
+#import "AFIiemView.h"
+#import "AFItemModel.h"
 #import "UIImageView+WebCache.h"
 
-@interface HXQBoardView ()
+@interface AFIiemView ()
 
-@property (nonatomic, strong) HXQMarqueeModel *model;
+@property (nonatomic, strong) AFItemModel *model;
 
 @property (nonatomic, strong) UIImageView *headImgView;
 @property (nonatomic, strong) UILabel *titleLb;
 
 @end
-@implementation HXQBoardView
+@implementation AFIiemView
 
--(instancetype)initWithFrame:(CGRect)frame Model:(HXQMarqueeModel *)model{
+-(instancetype)initWithFrame:(CGRect)frame Model:(AFItemModel *)model{
     if (self = [super initWithFrame:frame]) {
         self.model = model;
         [self setupUI];
