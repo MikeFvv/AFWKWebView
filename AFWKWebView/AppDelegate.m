@@ -30,25 +30,20 @@
     UpdateDownPageController *web = [[UpdateDownPageController alloc] init];
     //    [web loadWebURLSring:self.URL];
     
-    self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:web];;//设置根视图控制器
+    self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:web];;
     _webView = web;
     
-    [self.window makeKeyAndVisible];//设置成为主窗口并显示
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
 
 /// 异步请求
 - (void)sendRequest {
-    //1获取文件的访问路径
     NSString *path=@"http://176.113.71.120:8062/app/wksy";
-    //2封装URL
     NSURL *URL=[NSURL URLWithString:path];
-    //3创建请求命令
     NSURLRequest *URlrequest=[NSURLRequest requestWithURL:URL];
-    //4创建会话对象  通过单例方法实现
     NSURLSession *URlSession=[NSURLSession sharedSession];
-    //5执行会话的任务  通过request 请求 获取data对象
     
     
     __weak __typeof(self)weakSelf = self;
@@ -70,23 +65,16 @@
         
         
     }];
-    //6真正的执行任务
     [task resume];
 }
 /// 同步请求
 - (void)sendSyncWithRequest
 {
-    
-    //创建一个NSURL：请求路径
     NSString *strURL = @"http://176.113.71.120:8062/app/wksy";
     NSURL *url = [NSURL URLWithString:strURL];
-    //创建一个请求
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    //发送用户名和密码给服务器（HTTP协议）
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     
-    //解析服务器返回的JSON数据
     NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
     NSString *error = dict[@"error"];
     if (error) {

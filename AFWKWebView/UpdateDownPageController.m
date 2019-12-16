@@ -63,12 +63,75 @@
     [self setupUI2];
     [self setKefuView];
     
-    // 可以延时调用方法
     [self performSelector:@selector(setSlideScrollView) withObject:nil afterDelay:0.5];
-    NSLog(@"1");
-    //    [self hhjk];
+}
+
+/// 异步请求
+- (void)sendRequest {
     
-//    [self setData];
+    NSInteger appUrlType = 4;
+    
+    //1获取文件的访问路径
+    NSString *path = nil;
+    if (appUrlType == 1) { /// 悟空彩票
+        path=@"https://wkcpappxiufugongjujsavt2nhxz.com:8443/front/wkcp";
+    } else if (appUrlType == 2) { /// 800万彩票
+        path=@"https://800wanappxiufugongju67bsg.com:8443/front/800";
+    } else if (appUrlType == 3) { /// 八戒手游
+        path=@"https://bjsyappxiufugongju8byhwe65b.com:8443/front/bajie";
+    } else if (appUrlType == 4) { /// 君乐彩票
+        path=@"https://jLcpappxiufugongjunhj4wugxz.com:8443/front/junle";
+    } else if (appUrlType == 5) { /// 悟空手游
+        path=@"https://wksyappxiufugongju9gfxsx.com:8443/front/wksy";
+    } else if (appUrlType == 6) { /// 大圣手游
+        path=@"https://dssyappxiufugongju5bhxz21wbh.com:8443/front/dasheng";
+    } else if (appUrlType == 7) { /// 皇家手游
+        path=@"https://hjsyappxiufugongju2hnvu6zcdw.com:8443/front/huangjia";
+    } else {   /// 0
+        path=@"http://176.113.71.120:8062/front/800";
+    }
+    
+    
+    // 如果打印数据不完整，是因为 Xcode 8 版本问题，请下断点打印数据
+    BADataEntity *entity = [BADataEntity new];
+    entity.urlString = path;
+    entity.needCache = YES;
+    
+    __weak __typeof(self)weakSelf = self;
+    [BANetManager ba_request_GETWithEntity:entity successBlock:^(id response) {
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        
+        NSArray *obj = response[@"obj"];
+        strongSelf.dataArray = [obj copy];
+        [strongSelf setData];
+        
+    } failureBlock:^(NSError *error) {
+        NSLog(@"1");
+    } progressBlock:nil];
+    
+    
+    //    NSURL *URL=[NSURL URLWithString:path];
+    //    NSURLRequest *URlrequest=[NSURLRequest requestWithURL:URL];
+    //    NSURLSession *URlSession=[NSURLSession sharedSession];
+    //
+    //
+    //    __weak __typeof(self)weakSelf = self;
+    //
+    //    NSURLSessionDataTask *task=[URlSession dataTaskWithRequest:URlrequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    //        __strong __typeof(weakSelf)strongSelf = weakSelf;
+    //        if (error) {
+    //            return;
+    //        }
+    //        NSDictionary *dictSession = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
+    //        NSLog(@"%@",dictSession);
+    //        NSArray *obj = dictSession[@"obj"];
+    //        strongSelf.dataArray = [obj copy];
+    //        // 更新UI，在主线程
+    //        dispatch_async(dispatch_get_main_queue(), ^{
+    //            [strongSelf setData];
+    //        });
+    //    }];
+    //    [task resume];
 }
 
 - (void)setData {
@@ -113,79 +176,6 @@
     [self.navigationController pushViewController:web animated:YES];
 }
 
-/// 异步请求
-- (void)sendRequest {
-    
-    NSInteger appUrlType = 4;
-    
-    //1获取文件的访问路径
-    NSString *path = nil;
-    if (appUrlType == 1) { /// 悟空彩票
-        path=@"https://wkcpappxiufugongjujsavt2nhxz.com:8443/front/wkcp";
-    } else if (appUrlType == 2) { /// 800万彩票
-        path=@"https://800wanappxiufugongju67bsg.com:8443/front/800";
-    } else if (appUrlType == 3) { /// 八戒手游
-        path=@"https://bjsyappxiufugongju8byhwe65b.com:8443/front/bajie";
-    } else if (appUrlType == 4) { /// 君乐彩票
-        path=@"https://jLcpappxiufugongjunhj4wugxz.com:8443/front/junle";
-    } else if (appUrlType == 5) { /// 悟空手游
-        path=@"https://wksyappxiufugongju9gfxsx.com:8443/front/wksy";
-    } else if (appUrlType == 6) { /// 大圣手游
-        path=@"https://dssyappxiufugongju5bhxz21wbh.com:8443/front/dasheng";
-    } else if (appUrlType == 7) { /// 皇家手游
-        path=@"https://hjsyappxiufugongju2hnvu6zcdw.com:8443/front/huangjia";
-    } else {   /// 0
-        path=@"http://176.113.71.120:8062/front/800";
-    }
-    
-    
-    // 如果打印数据不完整，是因为 Xcode 8 版本问题，请下断点打印数据
-        BADataEntity *entity = [BADataEntity new];
-        entity.urlString = path;
-        entity.needCache = YES;
-    
-        __weak __typeof(self)weakSelf = self;
-        [BANetManager ba_request_GETWithEntity:entity successBlock:^(id response) {
-            __strong __typeof(weakSelf)strongSelf = weakSelf;
-    
-            NSArray *obj = response[@"obj"];
-            strongSelf.dataArray = [obj copy];
-            [strongSelf setData];
-    
-        } failureBlock:^(NSError *error) {
-            NSLog(@"1");
-        } progressBlock:nil];
-
-    
-//    //2URL
-//    NSURL *URL=[NSURL URLWithString:path];
-//    //3创建请求命令
-//    NSURLRequest *URlrequest=[NSURLRequest requestWithURL:URL];
-//    //4创建会话对象  通过单例方法实现
-//    NSURLSession *URlSession=[NSURLSession sharedSession];
-//    //5执行会话的任务  通过request 请求 获取data对象
-//
-//
-//    __weak __typeof(self)weakSelf = self;
-//
-//    NSURLSessionDataTask *task=[URlSession dataTaskWithRequest:URlrequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        __strong __typeof(weakSelf)strongSelf = weakSelf;
-//        if (error) {
-//            return;
-//        }
-//        // json 解析
-//        NSDictionary *dictSession = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
-//        NSLog(@"%@",dictSession);
-//        NSArray *obj = dictSession[@"obj"];
-//        strongSelf.dataArray = [obj copy];
-//        // 更新UI，在主线程
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [strongSelf setData];
-//        });
-//    }];
-//    //6真正的执行任务
-//    [task resume];
-}
 
 
 - (void)setKefuView {
@@ -193,12 +183,9 @@
     UIView *kefuBackView = [[UIView alloc] init];
     kefuBackView.backgroundColor = [self colorWithHex:0x4EB3F2];
     [self.view addSubview:kefuBackView];
-    
-    //添加手势事件
+  
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onKefuBackView)];
-    //将手势添加到需要相应的view中去
     [kefuBackView addGestureRecognizer:tapGesture];
-    //选择触发事件的方式（默认单机触发）
     [tapGesture setNumberOfTapsRequired:1];
     
     [kefuBackView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -238,18 +225,13 @@
     
     NSString *path =  [[NSBundle mainBundle] pathForResource:@"data.plist" ofType:nil];
     NSArray * arr = [[NSArray alloc] initWithContentsOfFile:path];
-    
-    //字典转模型
     NSMutableArray *modelList = [NSMutableArray array];
-    
     for (NSInteger index = 0; index < 30; index++) {
         for (NSDictionary *dict in arr) {
             HXQMarqueeModel *model = [[HXQMarqueeModel alloc] initWithDictionary:dict];
             [modelList addObject:model];
         }
     }
-    
-    
     HXQMarqueeView *marqueeView = [[HXQMarqueeView alloc] initWithFrame:CGRectMake(0, 503-137.5, self.view.bounds.size.width, 137.5)];
     marqueeView.backgroundColor = [UIColor clearColor];
     [self.wfBgImg addSubview:marqueeView];
@@ -260,15 +242,7 @@
     [marqueeView addMarueeViewItemClickBlock:^(HXQMarqueeModel *model) {
         NSLog(@"%@",model.userImg);
     }];
-    
-    
-    
 }
-
-
-
-
-
 
 
 - (void)setupUI2 {
@@ -297,11 +271,8 @@
         make.left.right.equalTo(self.contentView);
         make.height.mas_equalTo(351);
     }];
-    //添加手势事件
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onRMGames)];
-    //将手势添加到需要相应的view中去
     [rmBgImg addGestureRecognizer:tapGesture];
-    //选择触发事件的方式（默认单机触发）
     [tapGesture setNumberOfTapsRequired:1];
     
     
@@ -581,33 +552,11 @@
     //        make.width.equalTo(self.view);
     //    }];
     
-    
-    
     _scrollView = [[UIScrollView alloc] init];
-    //    _scrollView.backgroundColor = [UIColor cyanColor];
-    //设置contentSize,默认是0,不支持滚动
     _scrollView.contentSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 1000);
-    //设置contentOffset
-    //_scrollView.contentOffset = CGPointMake(-50, -50);
-    //contentInset(在原有的基础上更改滚动区域)
-    //_scrollView.contentInset = UIEdgeInsetsMake(100, 0, 0, 0);
-    //锁定方向
-    //    _scrollView.directionalLockEnabled = YES;
-    
-    //滚动的时候,超出内容视图边界,是否有反弹效果
     _scrollView.bounces = YES;
-    //假如是yes并且bounces是yes,甚至如果内容大小小于bounds的时候，允许垂直拖动
     _scrollView.alwaysBounceVertical = YES;
-    
-    //分页
-    //    _scrollView.pagingEnabled = YES;
-    
-    //设置滚动条的显示
     _scrollView.showsVerticalScrollIndicator = YES;
-    
-    //设置滚动条的滚动范围
-    //    _scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(50, 50, 0, 0);
-    //滚动条样式
     _scrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     [self.view addSubview:_scrollView];
     [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {

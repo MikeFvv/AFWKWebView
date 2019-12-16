@@ -11,8 +11,6 @@
 @implementation HXQMarqueeModel
 
 -(void)setTitle:(NSString *)title{
-    
-    //拿到icon 计算宽度
     self.width = 103;
 }
 

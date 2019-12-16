@@ -462,7 +462,7 @@
 				26E7545923A7938F00C2B447 /* AFNetworking */,
 				26E7544523A7938F00C2B447 /* BANetManager */,
 				26E7545023A7938F00C2B447 /* YYCache */,
-				40C3F4F223A2B03000465319 /* MarqueeView */,
+				40C3F4F223A2B03000465319 /* AFCyclicScrollImage */,
 				26E34EB623A20CBC004C2455 /* Masonry */,
 				40BF3C4C23A00BE300131821 /* SDWebImage */,
 				40BF3C4723A0049D00131821 /* Resources */,
@@ -672,20 +672,20 @@
 			path = Private;
 			sourceTree = "<group>";
 		};
-		40C3F4F223A2B03000465319 /* MarqueeView */ = {
+		40C3F4F223A2B03000465319 /* AFCyclicScrollImage */ = {
 			isa = PBXGroup;
 			children = (
 				40C3F4FF23A2B0C300465319 /* data.plist */,
-				40C3F4F323A2B03000465319 /* HXQMarqueeModel.h */,
-				40C3F4F423A2B03000465319 /* HXQMarqueeView.m */,
-				40C3F4F523A2B03000465319 /* UIView+Extionsiton.h */,
-				40C3F4F623A2B03000465319 /* HXQBoardView.m */,
-				40C3F4F723A2B03000465319 /* HXQMarqueeModel.m */,
-				40C3F4F823A2B03000465319 /* UIView+Extionsiton.m */,
 				40C3F4F923A2B03000465319 /* HXQMarqueeView.h */,
+				40C3F4F423A2B03000465319 /* HXQMarqueeView.m */,
+				40C3F4F323A2B03000465319 /* HXQMarqueeModel.h */,
+				40C3F4F723A2B03000465319 /* HXQMarqueeModel.m */,
+				40C3F4F523A2B03000465319 /* UIView+Extionsiton.h */,
+				40C3F4F823A2B03000465319 /* UIView+Extionsiton.m */,
+				40C3F4F623A2B03000465319 /* HXQBoardView.m */,
 				40C3F4FA23A2B03000465319 /* HXQBoardView.h */,
 			);
-			path = MarqueeView;
+			path = AFCyclicScrollImage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
