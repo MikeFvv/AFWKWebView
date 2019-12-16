@@ -15,6 +15,7 @@
 #import "HXQMarqueeModel.h"
 #import "HXQMarqueeView.h"
 #import "UIView+Extionsiton.h"
+#import "BANetManager_OC.h"
 
 
 @interface UpdateDownPageController ()<UIScrollViewDelegate>
@@ -66,6 +67,8 @@
     [self performSelector:@selector(setSlideScrollView) withObject:nil afterDelay:0.5];
     NSLog(@"1");
     //    [self hhjk];
+    
+//    [self setData];
 }
 
 - (void)setData {
@@ -113,48 +116,75 @@
 /// 异步请求
 - (void)sendRequest {
     
-    NSInteger appUrlType = 0;
+    NSInteger appUrlType = 4;
     
-     //1获取文件的访问路径
+    //1获取文件的访问路径
     NSString *path = nil;
-    if (appUrlType == 1) {
-         path=@"http://176.113.71.120:8062/front/800";
-    } else if (appUrlType == 2) {
-        
+    if (appUrlType == 1) { /// 悟空彩票
+        path=@"https://wkcpappxiufugongjujsavt2nhxz.com:8443/front/wkcp";
+    } else if (appUrlType == 2) { /// 800万彩票
+        path=@"https://800wanappxiufugongju67bsg.com:8443/front/800";
+    } else if (appUrlType == 3) { /// 八戒手游
+        path=@"https://bjsyappxiufugongju8byhwe65b.com:8443/front/bajie";
+    } else if (appUrlType == 4) { /// 君乐彩票
+        path=@"https://jLcpappxiufugongjunhj4wugxz.com:8443/front/junle";
+    } else if (appUrlType == 5) { /// 悟空手游
+        path=@"https://wksyappxiufugongju9gfxsx.com:8443/front/wksy";
+    } else if (appUrlType == 6) { /// 大圣手游
+        path=@"https://dssyappxiufugongju5bhxz21wbh.com:8443/front/dasheng";
+    } else if (appUrlType == 7) { /// 皇家手游
+        path=@"https://hjsyappxiufugongju2hnvu6zcdw.com:8443/front/huangjia";
     } else {   /// 0
-        path=@"http://176.113.71.120:8062/front/wksy";
+        path=@"http://176.113.71.120:8062/front/800";
     }
     
     
+    // 如果打印数据不完整，是因为 Xcode 8 版本问题，请下断点打印数据
+        BADataEntity *entity = [BADataEntity new];
+        entity.urlString = path;
+        entity.needCache = YES;
     
-    //2封装URL
-    NSURL *URL=[NSURL URLWithString:path];
-    //3创建请求命令
-    NSURLRequest *URlrequest=[NSURLRequest requestWithURL:URL];
-    //4创建会话对象  通过单例方法实现
-    NSURLSession *URlSession=[NSURLSession sharedSession];
-    //5执行会话的任务  通过request 请求 获取data对象
+        __weak __typeof(self)weakSelf = self;
+        [BANetManager ba_request_GETWithEntity:entity successBlock:^(id response) {
+            __strong __typeof(weakSelf)strongSelf = weakSelf;
     
-    
-    __weak __typeof(self)weakSelf = self;
-    
-    NSURLSessionDataTask *task=[URlSession dataTaskWithRequest:URlrequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        __strong __typeof(weakSelf)strongSelf = weakSelf;
-        if (error) {
-            return;
-        }
-        // json 解析
-        NSDictionary *dictSession = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
-        NSLog(@"%@",dictSession);
-        NSArray *obj = dictSession[@"obj"];
-        strongSelf.dataArray = [obj copy];
-        // 更新UI，在主线程
-        dispatch_async(dispatch_get_main_queue(), ^{
+            NSArray *obj = response[@"obj"];
+            strongSelf.dataArray = [obj copy];
             [strongSelf setData];
-        });
-    }];
-    //6真正的执行任务
-    [task resume];
+    
+        } failureBlock:^(NSError *error) {
+            NSLog(@"1");
+        } progressBlock:nil];
+
+    
+//    //2URL
+//    NSURL *URL=[NSURL URLWithString:path];
+//    //3创建请求命令
+//    NSURLRequest *URlrequest=[NSURLRequest requestWithURL:URL];
+//    //4创建会话对象  通过单例方法实现
+//    NSURLSession *URlSession=[NSURLSession sharedSession];
+//    //5执行会话的任务  通过request 请求 获取data对象
+//
+//
+//    __weak __typeof(self)weakSelf = self;
+//
+//    NSURLSessionDataTask *task=[URlSession dataTaskWithRequest:URlrequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+//        __strong __typeof(weakSelf)strongSelf = weakSelf;
+//        if (error) {
+//            return;
+//        }
+//        // json 解析
+//        NSDictionary *dictSession = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
+//        NSLog(@"%@",dictSession);
+//        NSArray *obj = dictSession[@"obj"];
+//        strongSelf.dataArray = [obj copy];
+//        // 更新UI，在主线程
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [strongSelf setData];
+//        });
+//    }];
+//    //6真正的执行任务
+//    [task resume];
 }
 
 
@@ -312,7 +342,7 @@
     UIImageView *topIconImgView = [[UIImageView alloc] init];
     topIconImgView.layer.cornerRadius = 5;
     topIconImgView.layer.masksToBounds = YES;
-    topIconImgView.image = [UIImage imageNamed:@"11x5"];
+    topIconImgView.image = [UIImage imageNamed:@"icon"];
     [self.contentView addSubview:topIconImgView];
     _topIconImgView = topIconImgView;
     
@@ -389,7 +419,7 @@
     UIImageView *iconImg = [[UIImageView alloc] init];
     iconImg.layer.cornerRadius = 5;
     iconImg.layer.masksToBounds = YES;
-    iconImg.image = [UIImage imageNamed:@"11x5"];
+    iconImg.image = [UIImage imageNamed:@"icon"];
     [bgImgView addSubview:iconImg];
     _iconImg = iconImg;
     
