@@ -1,9 +1,9 @@
 //
 //  HXQBoardView.m
-//  hxquan
+//  AFWKWebView
 //
-//  Created by Tiny on 2018/3/2.
-//  Copyright © 2018年 Tiny. All rights reserved.
+//  Created by Tiny on 2019/12/5.
+//  Copyright © 2019 AFan. All rights reserved.
 //
 
 #import "HXQBoardView.h"
