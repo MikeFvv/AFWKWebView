@@ -16,6 +16,7 @@
 #import "AFScrollView.h"
 #import "UIView+Extionsiton.h"
 #import "BANetManager_OC.h"
+#import "XHNetworkCache.h"
 
 
 @interface UpdateDownPageController ()<UIScrollViewDelegate>
@@ -56,43 +57,49 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [self sendRequest];
-    
     [self setScrollView];
     [self createSubViews];
     [self setupUI2];
     [self setKefuView];
-    
+    [self sendRequest];
     [self performSelector:@selector(setSlideScrollView) withObject:nil afterDelay:0.5];
 }
 
 /// 异步请求
 - (void)sendRequest {
     
-    NSInteger appUrlType = 4;
+    NSInteger appUrlType = 7;
     
     NSString *path = nil;
     if (appUrlType == 1) { /// 悟空彩票
-        path=@"https://wkcpappxiufugongjujsavt2nhxz.com:8443/front/wkcp";
+        path=@"https://wksy2003.com:8443/front/wkcp";
     } else if (appUrlType == 2) { /// 800万彩票
-        path=@"https://800wanappxiufugongju67bsg.com:8443/front/800";
+        path=@"https://wksy2003.com:8443/front/800";
     } else if (appUrlType == 3) { /// 八戒手游
-        path=@"https://bjsyappxiufugongju8byhwe65b.com:8443/front/bajie";
+        path=@"https://wksy2003.com:8443/front/bajie";
     } else if (appUrlType == 4) { /// 君乐彩票
-        path=@"https://jLcpappxiufugongjunhj4wugxz.com:8443/front/junle";
+        path=@"https://wksy2003.com:8443/front/junle";
     } else if (appUrlType == 5) { /// 悟空手游
-        path=@"https://wksyappxiufugongju9gfxsx.com:8443/front/wksy";
+        path=@"https://wksy2003.com:8443/front/wksy";
     } else if (appUrlType == 6) { /// 大圣手游
-        path=@"https://dssyappxiufugongju5bhxz21wbh.com:8443/front/dasheng";
+        path=@"https://wksy2003.com:8443/front/dasheng";
     } else if (appUrlType == 7) { /// 皇家手游
-        path=@"https://hjsyappxiufugongju2hnvu6zcdw.com:8443/front/huangjia";
+        path=@"https://wksy2003.com:8443/front/huangjia";
     } else {   /// 0
-        path=@"http://176.113.71.120:8062/front/800";
+        path=@"https://wksy2003.com:8443/front/800";
     }
     
     BADataEntity *entity = [BADataEntity new];
     entity.urlString = path;
     entity.needCache = YES;
+    
+    id cacheJson = [XHNetworkCache cacheJsonWithURL:entity.urlString params:nil];
+    if (cacheJson) {
+        NSArray *obj = cacheJson;
+        self.dataArray = [obj copy];
+        [self setData];
+    }
+    
     
     __weak __typeof(self)weakSelf = self;
     [BANetManager ba_request_GETWithEntity:entity successBlock:^(id response) {
@@ -101,6 +108,12 @@
         NSArray *obj = response[@"obj"];
         strongSelf.dataArray = [obj copy];
         [strongSelf setData];
+        
+        if (strongSelf.dataArray.count > 0) {
+            [XHNetworkCache save_asyncJsonResponseToCacheFile:obj andURL:entity.urlString params:nil completed:^(BOOL result) {
+                NSLog(@"1");
+            }];
+        }
         
     } failureBlock:^(NSError *error) {
         NSLog(@"1");

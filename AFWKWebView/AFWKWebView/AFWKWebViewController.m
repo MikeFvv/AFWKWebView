@@ -95,7 +95,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
         }
         case POSTWebURLString:{
             self.needLoadJSPOST = YES;
-            [self loadHostPathURL:@"WKJSPOST"];
+            [self loadHostPathURL:@"AFSPOST"];
             break;
         }
     }
